@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: edupath_user
+      POSTGRES_PASSWORD: edupath_password
+      POSTGRES_DB: edupath_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://edupath_user:edupath_password@db:5432/edupath_db
+      - SECRET_KEY=your-super-secret-jwt-key-for-development
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
