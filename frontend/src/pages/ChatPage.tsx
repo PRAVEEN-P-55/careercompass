@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Bot, User, Send } from "lucide-react";
-import axios from "axios";
+import { api } from "@/utils/api";
 
 export function ChatPage() {
   const [messages, setMessages] = useState([
@@ -20,7 +20,7 @@ export function ChatPage() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("/api/chat", { message: userMessage });
+      const res = await api.post("/chat", { message: userMessage });
       setMessages(prev => [...prev, { role: "assistant", content: res.data.response }]);
     } catch (e) {
       setMessages(prev => [...prev, { role: "assistant", content: "Sorry, I am having trouble connecting to the backend right now." }]);

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import axios from "axios";
+import { api } from "@/utils/api";
 
 export function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -31,7 +31,7 @@ export function RegisterPage() {
 
     setIsLoading(true);
     try {
-      await axios.post("/api/auth/register", {
+      await api.post("/auth/register", {
         full_name: formData.name,
         email: formData.email,
         password: formData.password

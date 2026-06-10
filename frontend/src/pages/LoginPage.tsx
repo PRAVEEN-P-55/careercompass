@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
-import axios from "axios";
+import { api } from "@/utils/api";
 
 export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +24,7 @@ export function LoginPage() {
       formData.append("username", email);
       formData.append("password", password);
 
-      const response = await axios.post("/api/auth/login", formData);
+      const response = await api.post("/auth/login", formData);
       localStorage.setItem("token", response.data.access_token);
       navigate("/dashboard");
     } catch (err: any) {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
-import axios from "axios";
+import { api } from "@/utils/api";
 
 const questions = [
   "I enjoy conducting science experiments and understanding how things work.",
@@ -35,7 +35,7 @@ export function AssessmentPage() {
     // In a real app we'd get user_id from context/token
     try {
       // Mock submit
-      const res = await axios.post("/api/assessment/submit", {
+      const res = await api.post("/assessment/submit", {
         user_id: 1, 
         answers: answers
       });
